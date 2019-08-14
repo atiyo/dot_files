@@ -128,8 +128,8 @@ nnoremap <Leader>gbr :Git branch<Space>
 nnoremap <Leader>gch :Git checkout<Space>
 nnoremap <Leader>gbl :Git blame<CR>
 nnoremap <Leader>gme :Git merge<CR>
-nnoremap <Leader>gpus :Dispatch! git push<CR>
-nnoremap <Leader>gpul :Dispatch! git pull<CR>
+nnoremap <Leader>gpus :Git push<CR>
+nnoremap <Leader>gpul :Git pull<CR>
 
 " FZF
 " fuzzy find files
