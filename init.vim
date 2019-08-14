@@ -79,7 +79,7 @@ call plug#begin('~/.nvim/plugged')
     Plug 'itchyny/lightline.vim'
     "REPL helper
     Plug 'epeli/slimux'
-    "REPL helper
+    "Git from vim
     Plug 'tpope/vim-fugitive'
     "Markdown Preview
     Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
