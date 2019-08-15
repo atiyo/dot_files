@@ -48,6 +48,8 @@ nnoremap <silent> <Leader>o :only<CR>
 "navigate buffers
 nnoremap <silent> <Leader>bl :ls<CR>
 nnoremap <silent> <Leader>bd :bd<CR>
+nnoremap <silent> <Leader>. :bn<CR>
+nnoremap <silent> <Leader>, :bp<CR>
 nnoremap <silent> <Leader>1 :b1<CR>
 nnoremap <silent> <Leader>2 :b2<CR>
 nnoremap <silent> <Leader>3 :b3<CR>
@@ -58,6 +60,11 @@ nnoremap <silent> <Leader>7 :b7<CR>
 nnoremap <silent> <Leader>8 :b8<CR>
 nnoremap <silent> <Leader>9 :b9<CR>
 nnoremap <silent> <Leader>0 :b10<CR>
+"navigate windows
+nnoremap <silent> <C-h> <C-w>h
+nnoremap <silent> <C-l> <C-w>l
+nnoremap <silent> <C-j> <C-w>j
+nnoremap <silent> <C-k> <C-w>k
 
 call plug#begin('~/.nvim/plugged')
     "LSP
