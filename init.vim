@@ -46,8 +46,8 @@ nnoremap <silent> <Esc> :noh<Cr>
 "close all windows except the current
 nnoremap <silent> <Leader>o :only<CR>
 "navigate buffers
-nnoremap <silent> <Leader>bl :ls<CR>
-nnoremap <silent> <Leader>bd :bd<CR>
+nnoremap <silent> <Leader>l :ls<CR>
+nnoremap <silent> <Leader>d :bd<CR>
 nnoremap <silent> <Leader>. :bn<CR>
 nnoremap <silent> <Leader>, :bp<CR>
 nnoremap <silent> <Leader>1 :b1<CR>
@@ -60,11 +60,6 @@ nnoremap <silent> <Leader>7 :b7<CR>
 nnoremap <silent> <Leader>8 :b8<CR>
 nnoremap <silent> <Leader>9 :b9<CR>
 nnoremap <silent> <Leader>0 :b10<CR>
-"navigate windows
-nnoremap <silent> <C-h> <C-w>h
-nnoremap <silent> <C-l> <C-w>l
-nnoremap <silent> <C-j> <C-w>j
-nnoremap <silent> <C-k> <C-w>k
 
 call plug#begin('~/.nvim/plugged')
     "LSP
@@ -95,6 +90,8 @@ call plug#begin('~/.nvim/plugged')
     "Fuzzy finding
     Plug '/usr/local/opt/fzf'
     Plug 'junegunn/fzf.vim'
+    "Seamless tmux/window navigation
+    Plug 'christoomey/vim-tmux-navigator'
 call plug#end()
 
 "LSP Config
@@ -107,6 +104,13 @@ let g:LanguageClient_serverCommands = {
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>:sleep50m<CR><C-w><S-H>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> <Leader>r :call LanguageClient#textDocument_references()<CR>
+
+"navigate windows with tmux-navigator
+let g:tmux_navigator_no_mappings = 1
+nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
 
 "REPL Config
 nmap <Space> :SlimuxREPLSendLine<CR>j
