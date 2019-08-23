@@ -46,7 +46,7 @@ nnoremap <silent> <Esc> :noh<Cr>
 "close all windows except the current
 nnoremap <silent> <Leader>o :only<CR>
 "navigate buffers
-nnoremap <silent> <Leader>l :ls<CR>
+nnoremap <silent> <Leader>b :ls<CR>
 nnoremap <silent> <Leader>d :bd<CR>
 nnoremap <silent> <Leader>. :bn<CR>
 nnoremap <silent> <Leader>, :bp<CR>
@@ -96,14 +96,14 @@ call plug#end()
 
 "LSP Config
 let g:LanguageClient_serverCommands = {
-    \ 'python': ['pyls'],
+    \ 'python': ['python', '-m', 'pyls'],
     \ 'r': ['R', '--slave', '-e', 'languageserver::run()'],
     \ 'julia': ['julia', '~/.config/nvim/julia_lsp.jl'],
     \ }
 
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>:sleep50m<CR><C-w><S-H>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <Leader>r :call LanguageClient#textDocument_references()<CR>
+nnoremap <silent> <Leader>l :call LanguageClient_contextMenu()<CR>
 
 "navigate windows with tmux-navigator
 let g:tmux_navigator_no_mappings = 1
