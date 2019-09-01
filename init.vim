@@ -99,6 +99,7 @@ let g:LanguageClient_serverCommands = {
     \ 'python': ['python', '-m', 'pyls'],
     \ 'r': ['R', '--slave', '-e', 'languageserver::run()'],
     \ 'julia': ['julia', '~/.config/nvim/julia_lsp.jl'],
+    \ 'cpp': ['clangd'],
     \ }
 
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>:sleep50m<CR><C-w><S-H>
