@@ -106,6 +106,7 @@ let g:LanguageClient_serverCommands = {
     \ 'julia': ['julia', '~/.config/nvim/julia_lsp.jl'],
     \ 'c': ['clangd'],
     \ 'haskell': ['hie-wrapper'],
+    \ 'racket': ['racket', '-l', 'racket-langserver/main'],
     \ }
 
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>:sleep50m<CR><C-w><S-H>
