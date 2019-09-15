@@ -92,6 +92,11 @@ call plug#begin('~/.nvim/plugged')
     Plug 'junegunn/fzf.vim'
     "Seamless tmux/window navigation
     Plug 'christoomey/vim-tmux-navigator'
+    "Rainbow parentheses
+    Plug 'kien/rainbow_parentheses.vim'
+    "Racket syntax etc.
+    Plug 'wlangstroth/vim-racket'
+    
 call plug#end()
 
 "LSP Config
@@ -99,7 +104,8 @@ let g:LanguageClient_serverCommands = {
     \ 'python': ['python', '-m', 'pyls'],
     \ 'r': ['R', '--slave', '-e', 'languageserver::run()'],
     \ 'julia': ['julia', '~/.config/nvim/julia_lsp.jl'],
-    \ 'cpp': ['clangd'],
+    \ 'c': ['clangd'],
+    \ 'haskell': ['hie-wrapper'],
     \ }
 
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>:sleep50m<CR><C-w><S-H>
