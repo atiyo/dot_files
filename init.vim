@@ -25,6 +25,8 @@ set hidden
 filetype plugin indent on
 "help identify julia files
 au VimEnter,BufRead,BufNewFile *.jl set filetype=julia
+"help identify racket files
+au VimEnter,BufRead,BufNewFile *.rkt set filetype=racket
 "while using r, provide shortcut for piping
 au FileType r inoremap <silent> <C-l> %>%
 
@@ -92,7 +94,8 @@ call plug#begin('~/.nvim/plugged')
     Plug 'junegunn/fzf.vim'
     "Seamless tmux/window navigation
     Plug 'christoomey/vim-tmux-navigator'
-    
+    "Lispy goodies
+    Plug 'wlangstroth/vim-racket'
 call plug#end()
 
 "LSP Config
@@ -102,6 +105,7 @@ let g:LanguageClient_serverCommands = {
     \ 'julia': ['julia', '~/.config/nvim/julia_lsp.jl'],
     \ 'cpp': ['clangd'],
     \ 'haskell': ['hie-wrapper'],
+    \ 'racket': ['racket -l racket-langserver/main']
     \ }
 
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>:sleep50m<CR><C-w><S-H>
