@@ -1,6 +1,4 @@
 """general options
-"use bash
-set shell=/bin/bash
 "do not insist on vi compatibility
 set nocompatible
 "use system clipboard
@@ -21,6 +19,9 @@ set expandtab
 set shiftwidth=4    
 "hide buffers instead of closing them
 set hidden
+"intuitive splits
+set splitbelow
+set splitright
 
 filetype plugin indent on
 "help identify julia files
@@ -81,8 +82,8 @@ call plug#begin('~/.nvim/plugged')
     Plug 'morhetz/gruvbox'
     "Statusline
     Plug 'itchyny/lightline.vim'
-    "REPL helper
-    Plug 'epeli/slimux'
+    "Terminal in vim
+    Plug 'kassio/neoterm'
     "Git from vim
     Plug 'tpope/vim-fugitive'
     "Markdown Preview
@@ -108,7 +109,7 @@ let g:LanguageClient_serverCommands = {
     \ 'racket': ['racket -l racket-langserver/main']
     \ }
 
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>:sleep50m<CR><C-w><S-H>
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> <Leader>l :call LanguageClient_contextMenu()<CR>
 
@@ -120,10 +121,12 @@ nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
 nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
 
 "REPL Config
-nmap <Space> :SlimuxREPLSendLine<CR>j
-vnoremap <Space> :SlimuxREPLSendSelection<CR>
-let g:slimux_select_from_current_window = 1
-let g:slime_target = 'tmux'
+nnoremap <Space> :TREPLSendLine<CR>j
+vnoremap <Space> :TREPLSendSelection<CR>}
+nnoremap <C-Space> :TREPLSendFile<CR>
+nnoremap <Leader>t :vertical Tnew<CR>
+nnoremap <Leader>c :Tclear<CR>
+tnoremap <Esc> <C-\><C-n>
 
 "Autocomplete config
 call deoplete#custom#option('num_processes', 1)
