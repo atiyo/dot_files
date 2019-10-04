@@ -44,6 +44,11 @@ endfunction
 
 "establish leader key
 nmap \\ <Leader>
+"Resize windows nicely
+nnoremap = :vertical resize +5<CR>
+nnoremap - :vertical resize -5<CR>
+nnoremap + :res +5<CR>
+nnoremap _ :res -5<CR>
 "remove highlighting from searches
 nnoremap <silent> <Esc> :noh<Cr>
 "close all windows except the current
@@ -115,10 +120,21 @@ nnoremap <silent> <Leader>l :call LanguageClient_contextMenu()<CR>
 
 "navigate windows with tmux-navigator
 let g:tmux_navigator_no_mappings = 1
-nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
-nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
-nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
-nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
+nnoremap <silent> <C-h> :TmuxNavigateLeft<CR>
+nnoremap <silent> <C-j> :TmuxNavigateDown<CR>
+nnoremap <silent> <C-k> :TmuxNavigateUp<CR>
+nnoremap <silent> <C-l> :TmuxNavigateRight<CR>
+
+tnoremap <silent> <C-h> <C-\><C-n>:TmuxNavigateLeft<CR>
+tnoremap <silent> <C-j> <C-\><C-n>:TmuxNavigateDown<CR>
+tnoremap <silent> <C-k> <C-\><C-n>:TmuxNavigateUp<CR>
+tnoremap <silent> <C-l> <C-\><C-n>:TmuxNavigateRight<CR>
+
+"enter insert mode when changing to a terminal
+autocmd WinEnter *
+ \ if &buftype ==# 'terminal' |
+ \  startinsert |
+ \ endif
 
 "REPL Config
 nnoremap <Space> :TREPLSendLine<CR>j
