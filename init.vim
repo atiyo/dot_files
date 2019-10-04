@@ -50,7 +50,7 @@ nnoremap - :vertical resize -5<CR>
 nnoremap + :res +5<CR>
 nnoremap _ :res -5<CR>
 "remove highlighting from searches
-nnoremap <silent> <Esc> :noh<Cr>
+nnoremap <silent> <Esc> :noh<CR>
 "close all windows except the current
 nnoremap <silent> <Leader>o :only<CR>
 "navigate buffers
