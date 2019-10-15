@@ -88,7 +88,7 @@ call plug#begin('~/.nvim/plugged')
     "Status line
     Plug 'itchyny/lightline.vim'
     "Buffers in status line
-    Plug 'bling/vim-bufferline'
+    Plug 'vim-scripts/buftabs'
     "Terminal in vim
     Plug 'kassio/neoterm'
     "Git from vim
@@ -183,21 +183,8 @@ syntax enable
 set background=dark
 colorscheme gruvbox
 
+
 "Status line config
 let g:lightline = {
       \ 'colorscheme': 'gruvbox',
-      \ 'tabline': {
-      \   'left': [ ['bufferline'] ]
-      \ },
-      \ 'component_expand': {
-      \   'bufferline': 'LightlineBufferline',
-      \ },
-      \ 'component_type': {
-      \   'bufferline': 'tabsel',
-      \ },
       \ }
-
-function! LightlineBufferline()
-  call bufferline#refresh_status()
-  return [ g:bufferline_status_info.before, g:bufferline_status_info.current, g:bufferline_status_info.after]
-endfunction
