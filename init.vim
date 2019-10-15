@@ -119,6 +119,7 @@ let g:LanguageClient_serverCommands = {
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> <Leader>l :call LanguageClient_contextMenu()<CR>
+let g:LanguageClient_useVirtualText = 0
 
 "navigate windows with tmux-navigator
 let g:tmux_navigator_no_mappings = 1
