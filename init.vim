@@ -55,7 +55,7 @@ nnoremap <silent> <Esc> :noh<CR>
 nnoremap <silent> <Leader>o :only<CR>
 "navigate buffers
 nnoremap <silent> <Leader>b :ls<CR>
-nnoremap <silent> <Leader>d :bd<CR>
+nnoremap <silent> <Leader>d :bp\|bd #<CR>
 nnoremap <silent> <Leader>. :bn<CR>
 nnoremap <silent> <Leader>, :bp<CR>
 nnoremap <silent> <Leader>1 :b1<CR>
