@@ -54,9 +54,15 @@ nnoremap <silent> <Esc> :noh<CR>
 "close all windows except the current
 nnoremap <silent> <Leader>o :only<CR>
 "navigate buffers
+"list buffer
 nnoremap <silent> <Leader>b :ls<CR>
+"delete buffer, retain window
 nnoremap <silent> <Leader>d :bp\|bd #<CR>
+"close buffer and window
+nnoremap <silent> <Leader>w :bd<CR>
+"next buffer
 nnoremap <silent> <Leader>. :bn<CR>
+"previous buffer
 nnoremap <silent> <Leader>, :bp<CR>
 nnoremap <silent> <Leader>1 :b1<CR>
 nnoremap <silent> <Leader>2 :b2<CR>
