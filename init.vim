@@ -110,6 +110,8 @@ call plug#begin('~/.nvim/plugged')
     Plug 'christoomey/vim-tmux-navigator'
     "Lispy goodies
     Plug 'wlangstroth/vim-racket'
+    "Highlighting for f and t movements
+    Plug 'unblevable/quick-scope'
 call plug#end()
 
 "LSP Config
