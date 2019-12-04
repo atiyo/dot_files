@@ -176,9 +176,13 @@ nnoremap <Leader>gdi :Gdiff<CR>
 nnoremap <Leader>gbr :Git branch<Space>
 nnoremap <Leader>gch :Git checkout<Space>
 nnoremap <Leader>gbl :Git blame<CR>
-nnoremap <Leader>gme :Git merge<CR>
 nnoremap <Leader>gpus :Git push<CR>
 nnoremap <Leader>gpul :Git pull<CR>
+" Exception to above rule. gme for merge conflicts.
+nnoremap <Leader>gme :Gvdiffsplit!<CR>
+" Arrows to point to which buffer you want to get from.
+nnoremap <Leader>g, :diffget //2<CR>
+nnoremap <Leader>g. :diffget //3<CR>
 
 " FZF
 " fuzzy find files
