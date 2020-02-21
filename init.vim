@@ -119,9 +119,9 @@ let g:LanguageClient_serverCommands = {
     \ 'python': ['python', '-m', 'pyls'],
     \ 'r': ['R', '--slave', '-e', 'languageserver::run()'],
     \ 'julia': ['julia', '~/.config/nvim/julia_lsp.jl'],
-    \ 'cpp': ['clangd'],
+    \ 'cpp': ['cquery', '--log-file=/tmp/cq.log'],
+    \ 'c': ['cquery', '--log-file=/tmp/cq.log'],
     \ 'haskell': ['hie-wrapper'],
-    \ 'racket': ['racket -l racket-langserver/main']
     \ }
 
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
