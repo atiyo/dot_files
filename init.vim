@@ -119,8 +119,8 @@ let g:LanguageClient_serverCommands = {
     \ 'python': ['python', '-m', 'pyls'],
     \ 'r': ['R', '--slave', '-e', 'languageserver::run()'],
     \ 'julia': ['julia', '~/.config/nvim/julia_lsp.jl'],
-    \ 'cpp': ['cquery', '--log-file=/tmp/cq.log'],
-    \ 'c': ['cquery', '--log-file=/tmp/cq.log'],
+    \ 'cpp': ['/usr/local/Cellar/llvm/9.0.1/bin/clangd'],
+    \ 'c': ['/usr/local/Cellar/llvm/9.0.1/bin/clangd'],
     \ 'haskell': ['hie-wrapper'],
     \ }
 
