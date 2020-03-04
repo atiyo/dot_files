@@ -64,16 +64,8 @@ nnoremap <silent> <Leader>w :bd<CR>
 nnoremap <silent> <Leader>. :bn<CR>
 "previous buffer
 nnoremap <silent> <Leader>, :bp<CR>
-nnoremap <silent> <Leader>1 :b1<CR>
-nnoremap <silent> <Leader>2 :b2<CR>
-nnoremap <silent> <Leader>3 :b3<CR>
-nnoremap <silent> <Leader>4 :b4<CR>
-nnoremap <silent> <Leader>5 :b5<CR>
-nnoremap <silent> <Leader>6 :b6<CR>
-nnoremap <silent> <Leader>7 :b7<CR>
-nnoremap <silent> <Leader>8 :b8<CR>
-nnoremap <silent> <Leader>9 :b9<CR>
-nnoremap <silent> <Leader>0 :b10<CR>
+" quit shortcut
+nnoremap <silent> <Leader>q :q<CR>
 
 call plug#begin('~/.nvim/plugged')
     "LSP
