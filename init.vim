@@ -66,6 +66,8 @@ nnoremap <silent> <Leader>. :bn<CR>
 nnoremap <silent> <Leader>, :bp<CR>
 " quit shortcut
 nnoremap <silent> <Leader>q :q<CR>
+" R piping shortcut
+inoremap <C-\> %>%
 
 call plug#begin('~/.nvim/plugged')
     "LSP
