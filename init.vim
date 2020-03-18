@@ -42,8 +42,17 @@ function! BuildComposer(info)
   endif
 endfunction
 
+" With a nod to https://vi.stackexchange.com/questions/454/whats-the-simplest-way-to-strip-trailing-whitespace-from-all-lines-in-a-file
+function! TrimWhitespace()
+    let l:save = winsaveview()
+    keeppatterns %s/\s\+$//e
+    call winrestview(l:save)
+endfunction
+
 "establish leader key
 nmap \\ <Leader>
+" trim trailing white spaces in the file
+noremap <Leader>s :call TrimWhitespace()<CR>
 "Resize windows nicely
 nnoremap = :vertical resize +5<CR>
 nnoremap - :vertical resize -5<CR>
@@ -180,9 +189,9 @@ nnoremap <Leader>g. :diffget //3<CR>
 
 " FZF
 " fuzzy find files
-nnoremap <Leader>ff :Files<CR>
+nnoremap <Leader>f :Files<CR>
 " fuzzy grep
-nnoremap <Leader>fg :Rg<CR>
+nnoremap <Leader>g :Rg<CR>
 
 "Colour scheme config
 syntax enable
