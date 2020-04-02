@@ -23,6 +23,9 @@ set hidden
 set splitbelow
 set splitright
 
+set colorcolumn=80
+set textwidth=80
+
 filetype plugin indent on
 "help identify julia files
 au VimEnter,BufRead,BufNewFile *.jl set filetype=julia
@@ -49,10 +52,22 @@ function! TrimWhitespace()
     call winrestview(l:save)
 endfunction
 
+function! ToggleLineLength()
+    if &colorcolumn==80
+        set colorcolumn=120
+        set textwidth=120
+    else
+        set colorcolumn=80
+        set textwidth=80
+    endif
+endfunction
+
 "establish leader key
 nmap \\ <Leader>
 " trim trailing white spaces in the file
 noremap <Leader>s :call TrimWhitespace()<CR>
+" toggle line lengths
+noremap <Leader>l :call ToggleLineLength()<CR>
 "Resize windows nicely
 nnoremap = :vertical resize +5<CR>
 nnoremap - :vertical resize -5<CR>
