@@ -7,16 +7,16 @@ set clipboard=unnamed
 set backupdir=~/.vim/tmp/
 set directory=~/.vim/tmp/
 "line number
-set number 
+set number
 "cursorlin
-set cursorline 
+set cursorline
 "make backspace respect end of lines
 set backspace=indent,eol,start
 "tabs are 4 spaces
-set tabstop=4 
+set tabstop=4
 set softtabstop=4
 set expandtab
-set shiftwidth=4    
+set shiftwidth=4
 "hide buffers instead of closing them
 set hidden
 "intuitive splits
@@ -31,8 +31,6 @@ filetype plugin indent on
 au VimEnter,BufRead,BufNewFile *.jl set filetype=julia
 "help identify racket files
 au VimEnter,BufRead,BufNewFile *.rkt set filetype=racket
-"while using r, provide shortcut for piping
-au FileType r inoremap <silent> <C-l> %>%
 
 " A little helper function to help maintain the markdown previewer
 function! BuildComposer(info)
@@ -89,8 +87,10 @@ nnoremap <silent> <Leader>. :bn<CR>
 nnoremap <silent> <Leader>, :bp<CR>
 " quit shortcut
 nnoremap <silent> <Leader>q :q<CR>
+" repeat macros with ,
+nnoremap <silent> , @@
 " R piping shortcut
-inoremap <C-\> %>%
+au VimEnter,BufRead,BufNewFile *.[r|R] inoremap <C-\> %>%
 
 call plug#begin('~/.nvim/plugged')
     "LSP
@@ -125,10 +125,10 @@ call plug#begin('~/.nvim/plugged')
     Plug 'junegunn/fzf.vim'
     "Seamless tmux/window navigation
     Plug 'christoomey/vim-tmux-navigator'
-    "Lispy goodies
-    Plug 'wlangstroth/vim-racket'
     "Highlighting for f and t movements
     Plug 'unblevable/quick-scope'
+    "More versatile dots
+    Plug 'tpope/vim-repeat'
 call plug#end()
 
 "LSP Config
