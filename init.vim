@@ -88,7 +88,7 @@ nnoremap <silent> <Leader>, :bp<CR>
 " quit shortcut
 nnoremap <silent> <Leader>q :q<CR>
 " repeat macros with ,
-nnoremap <silent> , @@
+nnoremap <silent> , @@ 
 " R piping shortcut
 au VimEnter,BufRead,BufNewFile *.[r|R] inoremap <C-\> %>%
 
@@ -129,8 +129,8 @@ call plug#begin('~/.nvim/plugged')
     Plug 'unblevable/quick-scope'
     "More versatile dots
     Plug 'tpope/vim-repeat'
-    "Lispy goodies
-    Plug 'wlangstroth/vim-racket'
+    "J Syntax highlighting
+    Plug 'guersam/vim-j'
 call plug#end()
 
 "LSP Config
@@ -141,7 +141,6 @@ let g:LanguageClient_serverCommands = {
     \ 'cpp': ['/usr/local/Cellar/llvm/9.0.1/bin/clangd'],
     \ 'c': ['/usr/local/Cellar/llvm/9.0.1/bin/clangd'],
     \ 'haskell': ['hie-wrapper'],
-    \ 'racket': ['racket -l racket-langserver/main'],
     \ }
 
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
