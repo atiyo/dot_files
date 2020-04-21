@@ -207,7 +207,7 @@ nnoremap <Leader>g. :diffget //3<CR>
 " fuzzy find files
 nnoremap <Leader>f :Files<CR>
 " fuzzy grep
-nnoremap <Leader>g :Rg<CR>
+nnoremap <Leader>/ :Rg<CR>
 
 "Colour scheme config
 syntax enable
