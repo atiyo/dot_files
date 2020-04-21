@@ -131,6 +131,8 @@ call plug#begin('~/.nvim/plugged')
     Plug 'tpope/vim-repeat'
     "J Syntax highlighting
     Plug 'guersam/vim-j'
+    "Easy alignment
+    Plug 'junegunn/vim-easy-align'
 call plug#end()
 
 "LSP Config
@@ -208,6 +210,12 @@ nnoremap <Leader>g. :diffget //3<CR>
 nnoremap <Leader>f :Files<CR>
 " fuzzy grep
 nnoremap <Leader>/ :Rg<CR>
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 
 "Colour scheme config
 syntax enable
