@@ -9,4 +9,15 @@ end
 function look_for
     fd $argv[1]
 end
+function recgitupdate
+    for dir in (find . -type d -depth 1)
+            echo $dir
+            cd $dir
+            if test -d ./git
+                git checkout master
+                git pull
+            end
+            cd ..
+    end
+end
 fish_vi_key_bindings
