@@ -13,8 +13,10 @@ function recgitupdate
     for dir in (find . -type d -depth 1)
         echo $dir
         cd $dir
-        git checkout master
-        git pull
+        if test -d .git
+            git checkout master
+            git pull
+        end
         cd ..
     end
 end
