@@ -110,8 +110,8 @@ call plug#begin('~/.nvim/plugged')
     Plug 'morhetz/gruvbox'
     "Status line
     Plug 'itchyny/lightline.vim'
-    "Buffers in status line
-    Plug 'vim-scripts/buftabs'
+    "Buffers as tabs
+    Plug 'ap/vim-buftabline'
     "Terminal in vim
     Plug 'kassio/neoterm'
     "Git from vim
@@ -223,7 +223,10 @@ nmap ga <Plug>(EasyAlign)
 syntax enable
 set background=dark
 colorscheme gruvbox
-
+ 
+"Buffer navigation
+nnoremap <C-h> :bnext<CR>
+nnoremap <C-l> :bprev<CR>
 
 "Status line config
 let g:lightline = {
