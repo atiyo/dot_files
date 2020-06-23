@@ -225,8 +225,8 @@ set background=dark
 colorscheme gruvbox
  
 "Buffer navigation
-nnoremap <C-h> :bnext<CR>
-nnoremap <C-l> :bprev<CR>
+nnoremap <C-l> :bnext<CR>
+nnoremap <C-h> :bprev<CR>
 
 "Status line config
 let g:lightline = {
