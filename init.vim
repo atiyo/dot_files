@@ -147,6 +147,7 @@ let g:LanguageClient_serverCommands = {
 
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> gr :call LanguageClient#textDocument_references()<CR>
 nnoremap <silent> <Leader>lm :call LanguageClient_contextMenu()<CR>
 vnoremap lf :call LanguageClient#textDocument_rangeFormatting()<CR>
 nnoremap <Leader>lr :LanguageClientStop<CR>:sleep 1<CR>:LanguageClientStart<CR>
