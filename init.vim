@@ -81,10 +81,6 @@ nnoremap <silent> <Leader>b :Buffers<CR>
 nnoremap <silent> <Leader>d :bp\|bd #<CR>
 "close buffer and window
 nnoremap <silent> <Leader>w :bd<CR>
-"next buffer
-nnoremap <silent> <Leader>. :bn<CR>
-"previous buffer
-nnoremap <silent> <Leader>, :bp<CR>
 " quit shortcut
 nnoremap <silent> <Leader>q :q<CR>
 " repeat macros with ,
@@ -94,14 +90,14 @@ nnoremap <silent> <Leader>v :vsplit<CR>
 " R piping shortcut
 au VimEnter,BufRead,BufNewFile *.[r|R] inoremap <C-\> %>%
 
+
 call plug#begin('~/.nvim/plugged')
-    "LSP
-    Plug 'autozimu/LanguageClient-neovim', {
-        \ 'branch': 'next',
-        \ 'do': 'bash install.sh',
-        \ }
-    "Autocompletion
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    "LSP settings
+    Plug 'neovim/nvim-lsp'
+    "Completion
+    Plug 'nvim-lua/completion-nvim'
+    "Diagnostics
+    Plug 'nvim-lua/diagnostic-nvim'
     "Change surroundings
     Plug 'tpope/vim-surround'
     "File Browser
@@ -137,23 +133,42 @@ call plug#begin('~/.nvim/plugged')
     Plug 'junegunn/vim-easy-align'
 call plug#end()
 
-"LSP Config
-let g:LanguageClient_serverCommands = {
-    \ 'python': ['python', '-m', 'pyls'],
-    \ 'r': ['R', '--slave', '-e', 'languageserver::run()'],
-    \ 'julia': ['julia', '~/.config/nvim/julia_lsp.jl'],
-    \ 'cpp': ['/usr/local/Cellar/llvm/9.0.1/bin/clangd'],
-    \ 'c': ['/usr/local/Cellar/llvm/9.0.1/bin/clangd'],
-    \ 'haskell': ['hie-wrapper'],
-    \ }
+"require'nvim_lsp'.pyls.setup{on_attach=require'diagnostic'.on_attach}
+lua << EOF
+local on_attach_vim = function()
+  require'completion'.on_attach()
+  require'diagnostic'.on_attach()
+end
+require'nvim_lsp'.pyls.setup{on_attach=on_attach_vim}
+EOF
 
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> gr :call LanguageClient#textDocument_references()<CR>
-nnoremap <silent> <Leader>lm :call LanguageClient_contextMenu()<CR>
-vnoremap lf :call LanguageClient#textDocument_rangeFormatting()<CR>
-nnoremap <Leader>lr :LanguageClientStop<CR>:sleep 1<CR>:LanguageClientStart<CR>
-let g:LanguageClient_useVirtualText = "No"
+nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> K  <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> ]d :NextDiagnostic<CR>
+nnoremap <silent> [d :PrevDiagnostic<CR>
+
+" Use <Tab> and <S-Tab> to navigate through popup menu
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
+let g:completion_enable_auto_hover = 0
+let g:diagnostic_insert_delay = 1
+
+" Avoid showing message extra message when using completion
+set shortmess+=c
+
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <TAB>
+  \ pumvisible() ? "\<C-n>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ completion#trigger_completion()
 
 "navigate windows with tmux-navigator
 let g:tmux_navigator_no_mappings = 1
@@ -182,11 +197,6 @@ nnoremap <Leader>t :vertical Tnew<CR>
 nnoremap <Leader>c :Tclear<CR>
 tnoremap <Esc> <C-\><C-n>
 
-"Autocomplete config
-call deoplete#custom#option('num_processes', 1)
-let g:deoplete#enable_at_startup = 1
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
 
 "Filebrowser config
 nnoremap <Leader>n :NERDTreeToggle<CR>
