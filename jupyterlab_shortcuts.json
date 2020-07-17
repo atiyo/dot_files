@@ -1,0 +1,32 @@
+{
+  "shortcuts": [
+    {
+      "command": "application:activate-next-tab",
+      "keys": [
+        "Ctrl ]"
+      ],
+      "selector": "body"
+    },
+    {
+      "command": "application:activate-previous-tab",
+      "keys": [
+        "Ctrl ["
+      ],
+      "selector": "body"
+    },
+    {
+      "command": "runmenu:run",
+      "keys": [
+        "Ctrl Space"
+      ],
+      "selector": "[data-jp-code-runner]"
+    },
+    {
+      "command": "apputils:activate-command-palette",
+      "keys": [
+        "Ctrl M"
+      ],
+      "selector": "body"
+    }
+  ]
+}
