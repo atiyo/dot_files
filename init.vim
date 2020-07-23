@@ -31,6 +31,9 @@ filetype plugin indent on
 au VimEnter,BufRead,BufNewFile *.jl set filetype=julia
 "help identify racket files
 au VimEnter,BufRead,BufNewFile *.rkt set filetype=racket
+"enable autocompletion in every buffer
+autocmd BufEnter * lua require'completion'.on_attach()
+
 
 " A little helper function to help maintain the markdown previewer
 function! BuildComposer(info)
@@ -84,7 +87,9 @@ nnoremap <silent> <Leader>w :bd<CR>
 " quit shortcut
 nnoremap <silent> <Leader>q :q<CR>
 " repeat macros with ,
-nnoremap <silent> , @@ 
+nnoremap <silent> , @@
+" use fzf for search
+nnoremap <silent> / :BLines<CR>
 " split window
 nnoremap <silent> <Leader>v :vsplit<CR>
 " R piping shortcut
@@ -133,6 +138,7 @@ call plug#begin('~/.nvim/plugged')
     Plug 'junegunn/vim-easy-align'
 call plug#end()
 
+
 "require'nvim_lsp'.pyls.setup{on_attach=require'diagnostic'.on_attach}
 lua << EOF
 local on_attach_vim = function()
@@ -140,13 +146,19 @@ local on_attach_vim = function()
   require'diagnostic'.on_attach()
 end
 require'nvim_lsp'.pyls.setup{on_attach=on_attach_vim}
+require'nvim_lsp'.bashls.setup{}
 EOF
+
 
 nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> K  <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> ]d :NextDiagnostic<CR>
 nnoremap <silent> [d :PrevDiagnostic<CR>
+
+
+inoremap <silent><expr> <c-p> completion#trigger_completion()
+
 
 " Use <Tab> and <S-Tab> to navigate through popup menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -160,15 +172,6 @@ let g:diagnostic_insert_delay = 1
 " Avoid showing message extra message when using completion
 set shortmess+=c
 
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-
-inoremap <silent><expr> <TAB>
-  \ pumvisible() ? "\<C-n>" :
-  \ <SID>check_back_space() ? "\<TAB>" :
-  \ completion#trigger_completion()
 
 "navigate windows with tmux-navigator
 let g:tmux_navigator_no_mappings = 1
@@ -236,7 +239,7 @@ nmap ga <Plug>(EasyAlign)
 syntax enable
 set background=dark
 colorscheme gruvbox
- 
+
 "Buffer navigation
 nnoremap <C-m> :bnext<CR>
 nnoremap <C-n> :bprev<CR>
