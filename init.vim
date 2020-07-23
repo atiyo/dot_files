@@ -31,9 +31,6 @@ filetype plugin indent on
 au VimEnter,BufRead,BufNewFile *.jl set filetype=julia
 "help identify racket files
 au VimEnter,BufRead,BufNewFile *.rkt set filetype=racket
-"enable autocompletion in every buffer
-autocmd BufEnter * lua require'completion'.on_attach()
-
 
 " A little helper function to help maintain the markdown previewer
 function! BuildComposer(info)
@@ -88,8 +85,6 @@ nnoremap <silent> <Leader>w :bd<CR>
 nnoremap <silent> <Leader>q :q<CR>
 " repeat macros with ,
 nnoremap <silent> , @@
-" use fzf for search
-nnoremap <silent> / :BLines<CR>
 " split window
 nnoremap <silent> <Leader>v :vsplit<CR>
 " R piping shortcut
@@ -99,8 +94,10 @@ au VimEnter,BufRead,BufNewFile *.[r|R] inoremap <C-\> %>%
 call plug#begin('~/.nvim/plugged')
     "LSP settings
     Plug 'neovim/nvim-lsp'
-    "Completion
-    Plug 'nvim-lua/completion-nvim'
+    ""Completion
+    Plug 'Shougo/deoplete.nvim'
+    ""Floating window hover completion
+    Plug 'ncm2/float-preview.nvim'
     "Diagnostics
     Plug 'nvim-lua/diagnostic-nvim'
     "Change surroundings
@@ -139,14 +136,8 @@ call plug#begin('~/.nvim/plugged')
 call plug#end()
 
 
-"require'nvim_lsp'.pyls.setup{on_attach=require'diagnostic'.on_attach}
 lua << EOF
-local on_attach_vim = function()
-  require'completion'.on_attach()
-  require'diagnostic'.on_attach()
-end
-require'nvim_lsp'.pyls.setup{on_attach=on_attach_vim}
-require'nvim_lsp'.bashls.setup{}
+require'nvim_lsp'.pyls.setup{on_attach=require'diagnostic'.on_attach}
 EOF
 
 
@@ -157,20 +148,12 @@ nnoremap <silent> ]d :NextDiagnostic<CR>
 nnoremap <silent> [d :PrevDiagnostic<CR>
 
 
-inoremap <silent><expr> <c-p> completion#trigger_completion()
-
+let g:deoplete#enable_at_startup = 1
+set completeopt-=preview
 
 " Use <Tab> and <S-Tab> to navigate through popup menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-" Set completeopt to have a better completion experience
-set completeopt=menuone,noinsert,noselect
-let g:completion_enable_auto_hover = 0
-let g:diagnostic_insert_delay = 1
-
-" Avoid showing message extra message when using completion
-set shortmess+=c
 
 
 "navigate windows with tmux-navigator
