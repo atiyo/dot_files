@@ -25,12 +25,15 @@ set splitright
 "line width markers
 set colorcolumn=80
 set textwidth=80
+set foldmethod=indent
+set relativenumber
 
-filetype plugin indent on
 "help identify julia files
 au VimEnter,BufRead,BufNewFile *.jl set filetype=julia
 "help identify racket files
 au VimEnter,BufRead,BufNewFile *.rkt set filetype=racket
+filetype plugin indent on
+au Filetype python,haskell,julia setlocal omnifunc=v:lua.vim.lsp.omnifunc
 
 " A little helper function to help maintain the markdown previewer
 function! BuildComposer(info)
@@ -83,8 +86,6 @@ nnoremap <silent> <Leader>d :bp\|bd #<CR>
 nnoremap <silent> <Leader>w :bd<CR>
 " quit shortcut
 nnoremap <silent> <Leader>q :q<CR>
-" repeat macros with ,
-nnoremap <silent> , @@
 " split window
 nnoremap <silent> <Leader>v :vsplit<CR>
 " R piping shortcut
@@ -93,11 +94,9 @@ au VimEnter,BufRead,BufNewFile *.[r|R] inoremap <C-\> %>%
 
 call plug#begin('~/.nvim/plugged')
     "LSP settings
-    Plug 'neovim/nvim-lsp'
+    Plug 'neovim/nvim-lspconfig'
     ""Completion
-    Plug 'Shougo/deoplete.nvim'
-    ""Floating window hover completion
-    Plug 'ncm2/float-preview.nvim'
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     "Diagnostics
     Plug 'nvim-lua/diagnostic-nvim'
     "Change surroundings
@@ -125,19 +124,26 @@ call plug#begin('~/.nvim/plugged')
     Plug 'junegunn/fzf.vim'
     "Seamless tmux/window navigation
     Plug 'christoomey/vim-tmux-navigator'
-    "Highlighting for f and t movements
-    Plug 'unblevable/quick-scope'
     "More versatile dots
     Plug 'tpope/vim-repeat'
     "J Syntax highlighting
     Plug 'guersam/vim-j'
     "Easy alignment
     Plug 'junegunn/vim-easy-align'
+    "Latex
+    Plug 'lervag/vimtex'
+    "Snippet engine
+    Plug 'SirVer/ultisnips'
+    "Snippet collection
+    Plug 'honza/vim-snippets'
 call plug#end()
 
 
 lua << EOF
 require'nvim_lsp'.pyls.setup{on_attach=require'diagnostic'.on_attach}
+require'nvim_lsp'.ghcide.setup{on_attach=require'diagnostic'.on_attach}
+require'nvim_lsp'.solargraph.setup{on_attach=require'diagnostic'.on_attach}
+require'nvim_lsp'.julials.setup{on_attach=require'diagnostic'.on_attach}
 EOF
 
 
@@ -177,10 +183,11 @@ let g:lightline = {'colorscheme': 'gruvbox'}
 
 "REPL Config
 nnoremap <Space> :TREPLSendLine<CR>j
-vnoremap <Space> :TREPLSendSelection<CR>}
+vnoremap <Space> :TREPLSendSelection<CR>
 nnoremap <C-Space> :TREPLSendFile<CR>
 nnoremap <Leader>t :vertical Tnew<CR>
 nnoremap <Leader>c :Tclear<CR>
+vnoremap <Leader>s :s/self.//g<CR>
 tnoremap <Esc> <C-\><C-n>
 
 
@@ -231,3 +238,25 @@ nnoremap <C-n> :bprev<CR>
 let g:lightline = {
       \ 'colorscheme': 'gruvbox',
       \ }
+
+let g:tex_flavor = 'latex'
+let g:vimtex_compiler_latexmk = { 
+        \ 'executable' : 'latexmk',
+        \ 'options' : [ 
+        \   '-xelatex',
+        \   '-file-line-error',
+        \   '-synctex=1',
+        \   '-interaction=nonstopmode',
+        \ ],
+        \}
+
+
+let g:UltiSnipsExpandTrigger="<C-h>"
+let g:UltiSnipsJumpForwardTrigger="<C-j>"
+let g:UltiSnipsJumpBackwardTrigger="<C-k>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+let g:latex_to_unicode_tab=0
+let g:latex_to_unicode_auto=1
