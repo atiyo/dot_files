@@ -97,8 +97,6 @@ call plug#begin('~/.nvim/plugged')
     Plug 'neovim/nvim-lspconfig'
     ""Completion
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    "Diagnostics
-    Plug 'nvim-lua/diagnostic-nvim'
     "Change surroundings
     Plug 'tpope/vim-surround'
     "File Browser
@@ -121,6 +119,7 @@ call plug#begin('~/.nvim/plugged')
     Plug 'JuliaEditorSupport/julia-vim'
     "Fuzzy finding
     Plug '/usr/local/opt/fzf'
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
     "Seamless tmux/window navigation
     Plug 'christoomey/vim-tmux-navigator'
@@ -140,18 +139,18 @@ call plug#end()
 
 
 lua << EOF
-require'nvim_lsp'.pyls.setup{on_attach=require'diagnostic'.on_attach}
-require'nvim_lsp'.ghcide.setup{on_attach=require'diagnostic'.on_attach}
-require'nvim_lsp'.solargraph.setup{on_attach=require'diagnostic'.on_attach}
-require'nvim_lsp'.julials.setup{on_attach=require'diagnostic'.on_attach}
+require'lspconfig'.pyls.setup{}
+require'lspconfig'.ghcide.setup{}
+require'lspconfig'.solargraph.setup{}
+require'lspconfig'.julials.setup{}
 EOF
 
 
 nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> K  <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> ]d :NextDiagnostic<CR>
-nnoremap <silent> [d :PrevDiagnostic<CR>
+nnoremap <silent> ]d <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+nnoremap <silent> [d <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
 
 
 let g:deoplete#enable_at_startup = 1
