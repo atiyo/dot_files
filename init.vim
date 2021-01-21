@@ -75,6 +75,8 @@ nnoremap + :res +5<CR>
 nnoremap _ :res -5<CR>
 "remove highlighting from searches
 nnoremap <silent> <Esc> :noh<CR>
+nnoremap <silent> i :noh<CR>i
+nnoremap <silent> c :noh<CR>c
 "close all windows except the current
 nnoremap <silent> <Leader>o :only<CR>
 "navigate buffers
