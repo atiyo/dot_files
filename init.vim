@@ -133,8 +133,6 @@ call plug#begin('~/.nvim/plugged')
     Plug 'junegunn/vim-easy-align'
     "Latex
     Plug 'lervag/vimtex'
-    "Lispy Goodies
-    Plug 'Olical/conjure', {'tag': 'v4.13.0'}
 call plug#end()
 
 
