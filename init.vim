@@ -133,6 +133,8 @@ call plug#begin('~/.nvim/plugged')
     Plug 'junegunn/vim-easy-align'
     "Latex
     Plug 'lervag/vimtex'
+    "Tree sitter
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 call plug#end()
 
 
@@ -254,13 +256,15 @@ let g:vimtex_compiler_latexmk = {
         \ ],
         \}
 
-
-let g:UltiSnipsExpandTrigger="<C-h>"
-let g:UltiSnipsJumpForwardTrigger="<C-j>"
-let g:UltiSnipsJumpBackwardTrigger="<C-k>"
-
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  -- Modules and its options go here
+  highlight = { enable = true },
+  incremental_selection = { enable = true },
+  textobjects = { enable = true },
+}
+EOF
 
 let g:latex_to_unicode_tab=0
 let g:latex_to_unicode_auto=1
