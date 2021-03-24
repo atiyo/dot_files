@@ -30,10 +30,7 @@ set relativenumber
 
 "help identify julia files
 au VimEnter,BufRead,BufNewFile *.jl set filetype=julia
-"help identify racket files
-au VimEnter,BufRead,BufNewFile *.rkt set filetype=racket
 filetype plugin indent on
-au Filetype python,haskell,julia setlocal omnifunc=v:lua.vim.lsp.omnifunc
 
 " A little helper function to help maintain the markdown previewer
 function! BuildComposer(info)
@@ -51,16 +48,6 @@ function! TrimWhitespace()
     let l:save = winsaveview()
     keeppatterns %s/\s\+$//e
     call winrestview(l:save)
-endfunction
-
-function! ToggleLineLength()
-    if &colorcolumn==80
-        set colorcolumn=120
-        set textwidth=120
-    else
-        set colorcolumn=80
-        set textwidth=80
-    endif
 endfunction
 
 "establish leader key
@@ -127,8 +114,6 @@ call plug#begin('~/.nvim/plugged')
     Plug 'christoomey/vim-tmux-navigator'
     "More versatile dots
     Plug 'tpope/vim-repeat'
-    "J Syntax highlighting
-    Plug 'guersam/vim-j'
     "Easy alignment
     Plug 'junegunn/vim-easy-align'
     "Latex
@@ -139,10 +124,53 @@ call plug#end()
 
 
 lua << EOF
-require'lspconfig'.pyls.setup{}
-require'lspconfig'.ghcide.setup{}
-require'lspconfig'.solargraph.setup{}
-require'lspconfig'.julials.setup{}
+local nvim_lsp = require('lspconfig')
+local on_attach = function(client, bufnr)
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  local opts = { noremap=true, silent=true }
+  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+
+  -- Set some keybinds conditional on server capabilities
+  if client.resolved_capabilities.document_formatting then
+    buf_set_keymap("n", "<C-f>", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+  elseif client.resolved_capabilities.document_range_formatting then
+    buf_set_keymap("n", "<C-f>", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+  end
+
+  -- Set autocommands conditional on server_capabilities
+  if client.resolved_capabilities.document_highlight then
+    vim.api.nvim_exec([[
+      hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
+      hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
+      hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
+      augroup lsp_document_highlight
+        autocmd! * <buffer>
+        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+      augroup END
+    ]], false)
+  end
+end
+
+-- Use a loop to conveniently both setup defined servers
+-- and map buffer local keybindings when the language server attaches
+local servers = { "pyls", "julials", "r_language_server", "hls"}
+for _, lsp in ipairs(servers) do
+  nvim_lsp[lsp].setup { on_attach = on_attach }
+end
+-- Disable virtual text for diagnostics
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
     virtual_text = false,
@@ -151,14 +179,6 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   }
 )
 EOF
-
-
-nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> K  <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> ]d <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
-nnoremap <silent> [d <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
-
 
 let g:deoplete#enable_at_startup = 1
 set completeopt-=preview
@@ -246,9 +266,9 @@ let g:lightline = {
       \ }
 
 let g:tex_flavor = 'latex'
-let g:vimtex_compiler_latexmk = { 
+let g:vimtex_compiler_latexmk = {
         \ 'executable' : 'latexmk',
-        \ 'options' : [ 
+        \ 'options' : [
         \   '-xelatex',
         \   '-file-line-error',
         \   '-synctex=1',
