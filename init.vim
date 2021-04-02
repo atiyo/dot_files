@@ -253,17 +253,11 @@ nmap ga <Plug>(EasyAlign)
 
 "Colour scheme config
 syntax enable
-set background=dark
 colorscheme gruvbox
 
 "Buffer navigation
 nnoremap <C-m> :bnext<CR>
 nnoremap <C-n> :bprev<CR>
-
-"Status line config
-let g:lightline = {
-      \ 'colorscheme': 'gruvbox',
-      \ }
 
 let g:tex_flavor = 'latex'
 let g:vimtex_compiler_latexmk = {
