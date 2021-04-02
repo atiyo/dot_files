@@ -226,7 +226,7 @@ nnoremap <Leader>n :NERDTreeToggle<CR>
 " git command.
 nnoremap <Leader>gad :Git add %:p<CR><CR>
 nnoremap <Leader>gst :Gstatus<CR>
-nnoremap <Leader>gco :Gcommit -v -q<CR>
+nnoremap <Leader>gco :Git commit -v -q<CR>
 nnoremap <Leader>gdi :Gdiff<CR>
 nnoremap <Leader>gbr :Git branch<Space>
 nnoremap <Leader>gch :Git checkout<Space>
