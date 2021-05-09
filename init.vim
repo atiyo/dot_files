@@ -77,8 +77,8 @@ nnoremap <silent> <Leader>w :bd<CR>
 nnoremap <silent> <Leader>q :q<CR>
 " split window
 nnoremap <silent> <Leader>v :vsplit<CR>
-" repeat macros with m
-nnoremap <silent> m @@
+" repeat macros with Q
+nnoremap <silent> Q @@
 " R piping shortcut
 au VimEnter,BufRead,BufNewFile *.[r|R] inoremap <C-\> %>%
 
