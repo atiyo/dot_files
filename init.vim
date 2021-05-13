@@ -77,8 +77,8 @@ nnoremap <silent> <Leader>w :bd<CR>
 nnoremap <silent> <Leader>q :q<CR>
 " split window
 nnoremap <silent> <Leader>v :vsplit<CR>
-" repeat macros with Q
-nnoremap <silent> Q @@
+" repeat macros with M
+nnoremap <silent> M @@
 " R piping shortcut
 au VimEnter,BufRead,BufNewFile *.[r|R] inoremap <C-\> %>%
 
@@ -108,6 +108,7 @@ call plug#begin('~/.nvim/plugged')
     Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
     "Julia syntax highlighting
     Plug 'JuliaEditorSupport/julia-vim'
+    Plug 'kdheepak/JuliaFormatter.vim'
     "Fuzzy finding
     Plug '/usr/local/opt/fzf'
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -151,6 +152,7 @@ local on_attach = function(client, bufnr)
     buf_set_keymap("n", "<C-f>", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
   end
 
+
   -- Set autocommands conditional on server_capabilities
   if client.resolved_capabilities.document_highlight then
     vim.api.nvim_exec([[
@@ -182,6 +184,9 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 )
 EOF
 
+autocmd FileType julia nnoremap <buffer> <C-f> :JuliaFormatterFormat<CR>
+autocmd FileType julia vnoremap <buffer> <C-f> :JuliaFormatterFormat<CR>
+
 let g:deoplete#enable_at_startup = 1
 set completeopt-=preview
 
@@ -212,7 +217,7 @@ let g:lightline = {'colorscheme': 'gruvbox'}
 "REPL Config
 nnoremap <Space> :TREPLSendLine<CR>j
 vnoremap <Space> :TREPLSendSelection<CR>
-nnoremap <C-Space> :TREPLSendFile<CR>
+nnoremap <C-Space> vip :TREPLSendSelection<CR>}
 nnoremap <Leader>t :vertical Tnew<CR>
 nnoremap <Leader>c :Tclear<CR>
 vnoremap <Leader>s :s/self.//g<CR>
