@@ -25,6 +25,8 @@ set splitright
 "line width markers
 set colorcolumn=80
 set textwidth=80
+autocmd FileType tex set colorcolumn=120
+autocmd FileType tex set textwidth=120
 set foldmethod=indent
 set relativenumber
 
@@ -186,6 +188,8 @@ EOF
 
 autocmd FileType julia nnoremap <buffer> <C-f> :JuliaFormatterFormat<CR>
 autocmd FileType julia vnoremap <buffer> <C-f> :JuliaFormatterFormat<CR>
+autocmd FileType tex nnoremap <buffer> <C-f> :%! latexindent.pl -m<CR>
+
 
 let g:deoplete#enable_at_startup = 1
 set completeopt-=preview
