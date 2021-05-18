@@ -16,15 +16,8 @@ end
 function lf
     fd $argv[1]
 end
-function recgitupdate
-    for dir in (find . -type d -depth 1)
-        echo $dir
-        cd $dir
-        if test -d .git
-            git checkout master
-            git pull
-        end
-        cd ..
-    end
+function save
+   git add $argv[1..-2]
+   git commit -m $argv[-1] 
 end
 fish_vi_key_bindings
