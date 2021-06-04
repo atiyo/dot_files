@@ -127,6 +127,7 @@ call plug#begin('~/.nvim/plugged')
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     "Python formatting
     Plug 'psf/black', { 'branch': 'stable' }
+    Plug 'fisadev/vim-isort'
 call plug#end()
 
 
@@ -184,6 +185,7 @@ autocmd FileType julia nnoremap <buffer> <C-f> :JuliaFormatterFormat<CR>
 autocmd FileType julia vnoremap <buffer> <C-f> :JuliaFormatterFormat<CR>
 autocmd FileType python nnoremap <buffer> <C-f> :Black<CR>
 let g:black_linelength = 80
+autocmd FileType python nnoremap <buffer> <C-i> :Isort<CR>
 autocmd FileType tex nnoremap <buffer> <C-f> :%! latexindent.pl -m<CR>
 
 set completeopt=menuone,noselect
