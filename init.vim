@@ -23,8 +23,8 @@ set hidden
 set splitbelow
 set splitright
 "line width markers
-set colorcolumn=80
-set textwidth=80
+set colorcolumn=100
+set textwidth=100
 autocmd FileType tex set colorcolumn=120
 autocmd FileType tex set textwidth=120
 set foldmethod=indent
@@ -76,7 +76,7 @@ nnoremap <silent> <Leader>d :bp\|bd #<CR>
 "close buffer and window
 nnoremap <silent> <Leader>w :bd<CR>
 " quit shortcut
-nnoremap <silent> <Leader>q :q<CR>
+nnoremap <silent> <Leader>q :qa<CR>
 " split window
 nnoremap <silent> <Leader>v :vsplit<CR>
 " repeat macros with M
@@ -183,7 +183,7 @@ EOF
 autocmd FileType julia nnoremap <buffer> <C-f> :JuliaFormatterFormat<CR>
 autocmd FileType julia vnoremap <buffer> <C-f> :JuliaFormatterFormat<CR>
 autocmd FileType python nnoremap <buffer> <C-f> :Black<CR>
-let g:black_linelength = 80
+let g:black_linelength = 100
 autocmd FileType python nnoremap <buffer> <C-i> :Isort<CR>
 autocmd FileType tex nnoremap <buffer> <C-f> :%! latexindent.pl -m<CR>
 
