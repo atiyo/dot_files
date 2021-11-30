@@ -77,12 +77,14 @@ nnoremap <silent> <Leader>d :bp\|bd #<CR>
 nnoremap <silent> <Leader>w :bd<CR>
 " quit shortcut
 nnoremap <silent> <Leader>q :qa<CR>
+nnoremap <silent> <Leader>x :xa<CR>
 " split window
 nnoremap <silent> <Leader>v :vsplit<CR>
 " repeat macros with M
 nnoremap <silent> M @@
 " R piping shortcut
 au VimEnter,BufRead,BufNewFile *.[r|R] inoremap <C-\> %>%
+nnoremap <silent> <Leader>ls :write \| edit \| TSBufEnable highlight<CR>
 
 
 call plug#begin('~/.nvim/plugged')
@@ -126,7 +128,7 @@ call plug#begin('~/.nvim/plugged')
     "Tree sitter
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     "Python formatting
-    Plug 'psf/black', { 'branch': 'stable' }
+    Plug 'psf/black'
     Plug 'fisadev/vim-isort'
 call plug#end()
 
@@ -148,6 +150,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', 'rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
 
   -- Set autocommands conditional on server_capabilities
   if client.resolved_capabilities.document_highlight then
@@ -166,7 +169,7 @@ end
 
 -- Use a loop to conveniently both setup defined servers
 -- and map buffer local keybindings when the language server attaches
-local servers = { "pyls", "julials", "r_language_server", "hls"}
+local servers = { "pylsp", "julials", "r_language_server", "hls"}
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup { on_attach = on_attach }
 end
