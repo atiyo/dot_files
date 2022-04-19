@@ -117,8 +117,8 @@ call plug#begin('~/.nvim/plugged')
     Plug '/usr/local/opt/fzf'
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
-    "Seamless tmux/window navigation
-    Plug 'christoomey/vim-tmux-navigator'
+    ""Seamless tmux/window navigation
+    "Plug 'christoomey/vim-tmux-navigator'
     "More versatile dots
     Plug 'tpope/vim-repeat'
     "Easy alignment
@@ -148,8 +148,8 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
   buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', 'rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
 
   -- Set autocommands conditional on server_capabilities
@@ -189,6 +189,7 @@ autocmd FileType python nnoremap <buffer> <C-f> :Black<CR>
 let g:black_linelength = 100
 autocmd FileType python nnoremap <buffer> <C-i> :Isort<CR>
 autocmd FileType tex nnoremap <buffer> <C-f> :%! latexindent.pl -m<CR>
+autocmd FileType json nnoremap <C-f> :%! jq .<CR>
 
 set completeopt=menuone,noselect
 let g:compe = {}
@@ -220,16 +221,21 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 
 "navigate windows with tmux-navigator
-let g:tmux_navigator_no_mappings = 1
-nnoremap <silent> <C-h> :TmuxNavigateLeft<CR>
-nnoremap <silent> <C-j> :TmuxNavigateDown<CR>
-nnoremap <silent> <C-k> :TmuxNavigateUp<CR>
-nnoremap <silent> <C-l> :TmuxNavigateRight<CR>
+"let g:tmux_navigator_no_mappings = 1
+"nnoremap <silent> <C-h> :TmuxNavigateLeft<CR>
+"nnoremap <silent> <C-j> :TmuxNavigateDown<CR>
+"nnoremap <silent> <C-k> :TmuxNavigateUp<CR>
+"nnoremap <silent> <C-l> :TmuxNavigateRight<CR>
 
-tnoremap <silent> <C-h> <C-\><C-n>:TmuxNavigateLeft<CR>
-tnoremap <silent> <C-j> <C-\><C-n>:TmuxNavigateDown<CR>
-tnoremap <silent> <C-k> <C-\><C-n>:TmuxNavigateUp<CR>
-tnoremap <silent> <C-l> <C-\><C-n>:TmuxNavigateRight<CR>
+nnoremap <silent> <C-h> <C-w>h
+nnoremap <silent> <C-j> <C-w>j
+nnoremap <silent> <C-k> <C-w>k
+nnoremap <silent> <C-l> <C-w>l
+
+tnoremap <silent> <C-h> <C-\><C-n><C-w>h
+tnoremap <silent> <C-j> <C-\><C-n><C-w>j
+tnoremap <silent> <C-k> <C-\><C-n><C-w>k
+tnoremap <silent> <C-l> <C-\><C-n><C-w>l
 
 "enter insert mode when changing to a terminal
 autocmd WinEnter *
