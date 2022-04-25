@@ -128,7 +128,7 @@ call plug#begin('~/.nvim/plugged')
     "Tree sitter
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     "Python formatting
-    Plug 'psf/black'
+    Plug 'averms/black-nvim', {'do': ':UpdateRemotePlugins'}
     Plug 'fisadev/vim-isort'
 call plug#end()
 
@@ -151,6 +151,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', 'rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', '<C-f>', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
   -- Set autocommands conditional on server_capabilities
   if client.resolved_capabilities.document_highlight then
@@ -185,9 +186,8 @@ EOF
 
 autocmd FileType julia nnoremap <buffer> <C-f> :JuliaFormatterFormat<CR>
 autocmd FileType julia vnoremap <buffer> <C-f> :JuliaFormatterFormat<CR>
-autocmd FileType python nnoremap <buffer> <C-f> :Black<CR>
-let g:black_linelength = 100
-autocmd FileType python nnoremap <buffer> <C-i> :Isort<CR>
+"autocmd FileType python nnoremap <buffer> <C-f> <cmd>call Black()<cr>
+autocmd FileType python nnoremap <buffer> <C-s> :Isort<CR>
 autocmd FileType tex nnoremap <buffer> <C-f> :%! latexindent.pl -m<CR>
 autocmd FileType json nnoremap <C-f> :%! jq .<CR>
 
@@ -293,8 +293,8 @@ syntax enable
 colorscheme gruvbox
 
 "Buffer navigation
-nnoremap <C-m> :bnext<CR>
-nnoremap <C-n> :bprev<CR>
+nnoremap L :bnext<CR>
+nnoremap H :bprev<CR>
 
 let g:tex_flavor = 'latex'
 let g:vimtex_compiler_latexmk = {
@@ -309,7 +309,7 @@ let g:vimtex_compiler_latexmk = {
 
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  ensure_installed = "all", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   -- Modules and its options go here
   highlight = { enable = true },
   incremental_selection = { enable = true },
