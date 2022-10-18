@@ -25,6 +25,18 @@ function save
    git commit -m $argv[-1] 
 end
 
+function rup
+    set -lx LOCAL_PATH (git rev-parse --show-toplevel)"/"
+    set -lx REMOTE_PATH "~/$(basename $LOCAL_PATH)"
+    rsync -Wvhra $LOCAL_PATH server:$REMOTE_PATH --exclude='.git/' --exclude='*.tfevents.*' --exclude="*.pyc" --exclude="*.DS_Store" --exclude="*scratch." --exclude="*.envrc"
+end
+
+function rdo
+    set -lx LOCAL_PATH (git rev-parse --show-toplevel)
+    set -lx REMOTE_PATH "~/$(basename $LOCAL_PATH)/"
+    rsync -Wvhra server:$REMOTE_PATH $LOCAL_PATH --exclude='.git/' --exclude='*.tfevents.*' --exclude="*.pyc" --exclude="*.DS_Store" --exclude="*scratch." --exclude="*.envrc"
+end
+
 set -g hydro_color_pwd B8BB26
 set -g hydro_color_git 83A598
 set -g hydro_color_error FB4934

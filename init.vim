@@ -85,6 +85,9 @@ nnoremap <silent> M @@
 " R piping shortcut
 au VimEnter,BufRead,BufNewFile *.[r|R] inoremap <C-\> %>%
 nnoremap <silent> <Leader>ls :write \| edit \| TSBufEnable highlight<CR>
+"Easy rsyncing
+nnoremap <Leader>ru :!rup<CR>
+nnoremap <Leader>rd :!rdo<CR>
 
 
 call plug#begin('~/.nvim/plugged')
