@@ -11,6 +11,7 @@ alias gdiff "git diff"
 alias gpul "git pull"
 alias gpus "git push"
 alias gst "git status"
+alias tree "tree -I '__pycache__|*.pyc' "
 
 function li
     fd $argv[1]\$ | xargs rg $argv[2]
