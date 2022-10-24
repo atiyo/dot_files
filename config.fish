@@ -38,9 +38,3 @@ function rdo
     set -lx REMOTE_PATH "~/$(basename $LOCAL_PATH)/"
     rsync -Wvhra server:$REMOTE_PATH $LOCAL_PATH --exclude='.git/' --exclude='*.tfevents.*' --exclude="*.pyc" --exclude="*.DS_Store" --exclude="*scratch." --exclude="*.envrc"
 end
-
-set -g hydro_color_pwd B8BB26
-set -g hydro_color_git 83A598
-set -g hydro_color_error FB4934
-set -g hydro_color_prompt 928374
-set -g hydro_color_duration FABD2F
