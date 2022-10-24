@@ -38,3 +38,5 @@ function rdo
     set -lx REMOTE_PATH "~/$(basename $LOCAL_PATH)/"
     rsync -Wvhra server:$REMOTE_PATH $LOCAL_PATH --exclude='.git/' --exclude='*.tfevents.*' --exclude="*.pyc" --exclude="*.DS_Store" --exclude="*scratch." --exclude="*.envrc"
 end
+
+fzf_configure_bindings --directory=\cf --processes=\cp --git_status=\cg
