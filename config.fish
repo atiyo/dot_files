@@ -12,7 +12,7 @@ function gpus; git push $argv; end
 function gst; git status; end
 function gbr; git branch $argv; end
 function mini; env PYENV_VERSION=miniforge3-4.10.3-10 $argv; end
-function tree; tree -I '__pycache__|*.pyc' $argv; end
+function tree; exa -T --git-ignore $argv; end
 
 function li
     fd $argv[1]\$ | xargs rg $argv[2]
