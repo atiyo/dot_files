@@ -133,6 +133,7 @@ call plug#begin('~/.nvim/plugged')
     "Python formatting
     Plug 'averms/black-nvim', {'do': ':UpdateRemotePlugins'}
     Plug 'fisadev/vim-isort'
+    Plug 'justinmk/vim-sneak'
 call plug#end()
 
 
@@ -222,6 +223,10 @@ let g:compe.source.ultisnips = v:true
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
+map t <Plug>Sneak_t
+map T <Plug>Sneak_T
 
 "navigate windows with tmux-navigator
 "let g:tmux_navigator_no_mappings = 1
