@@ -89,7 +89,6 @@ nnoremap <silent> <Leader>ls :write \| edit \| TSBufEnable highlight<CR>
 nnoremap <Leader>ru :!rup<CR>
 nnoremap <Leader>rd :!rdo<CR>
 
-
 call plug#begin('~/.nvim/plugged')
     "LSP settings
     Plug 'neovim/nvim-lspconfig'
@@ -227,6 +226,7 @@ map f <Plug>Sneak_f
 map F <Plug>Sneak_F
 map t <Plug>Sneak_t
 map T <Plug>Sneak_T
+let g:sneak#label = 1
 
 "navigate windows with tmux-navigator
 "let g:tmux_navigator_no_mappings = 1
@@ -324,6 +324,7 @@ require'nvim-treesitter.configs'.setup {
   textobjects = { enable = true },
 }
 EOF
+
 
 let g:latex_to_unicode_tab=0
 let g:latex_to_unicode_auto=1
