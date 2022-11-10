@@ -39,4 +39,8 @@ function rdo
     rsync -Wvhra server:$REMOTE_PATH $LOCAL_PATH --exclude='.git/' --exclude='*.tfevents.*' --exclude="*.pyc" --exclude="*.DS_Store" --exclude="*scratch." --exclude="*.envrc"
 end
 
+function pdf_merge
+    gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=merged.pdf $argv
+end
+
 fzf_configure_bindings --directory=\cf --processes=\cp --git_status=\cg
