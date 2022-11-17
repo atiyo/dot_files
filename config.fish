@@ -13,6 +13,7 @@ function gst; git status; end
 function gbr; git branch $argv; end
 function mini; env PYENV_VERSION=miniforge3-4.10.3-10 $argv; end
 function tree; exa -T --git-ignore $argv; end
+function pj; cd (find $PROJECT_PATHS -type d -maxdepth 1 | fzf); end
 
 function li
     fd $argv[1]\$ | xargs rg $argv[2]
