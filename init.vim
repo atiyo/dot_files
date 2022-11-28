@@ -136,7 +136,6 @@ call plug#begin('~/.nvim/plugged')
 call plug#end()
 
 
-" buf_set_keymap('n', '<C-f>', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 lua << EOF
 local nvim_lsp = require('lspconfig')
 local on_attach = function(client, bufnr)
@@ -155,9 +154,10 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', 'rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', '<C-f>', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
   -- Set autocommands conditional on server_capabilities
-  if client.resolved_capabilities.document_highlight then
+  if client.server_capabilities.document_highlight then
     vim.api.nvim_exec([[
       hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
       hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
@@ -189,7 +189,6 @@ EOF
 
 autocmd FileType julia nnoremap <buffer> <C-f> :JuliaFormatterFormat<CR>
 autocmd FileType julia vnoremap <buffer> <C-f> :JuliaFormatterFormat<CR>
-autocmd FileType python nnoremap <buffer> <C-f> <cmd>call Black()<cr>
 autocmd FileType python nnoremap <buffer> <C-s> :Isort<CR>
 autocmd FileType tex nnoremap <buffer> <C-f> :%! latexindent.pl -m<CR>
 autocmd FileType json nnoremap <C-f> :%! jq .<CR>
