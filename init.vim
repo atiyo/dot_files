@@ -129,8 +129,6 @@ call plug#begin('~/.nvim/plugged')
     Plug 'lervag/vimtex'
     "Tree sitter
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-    "Python formatting
-    Plug 'averms/black-nvim', {'do': ':UpdateRemotePlugins'}
     Plug 'fisadev/vim-isort'
     Plug 'justinmk/vim-sneak'
 call plug#end()
@@ -154,7 +152,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', 'rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', '<C-f>', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  vim.keymap.set('n', '<C-f>', function() vim.lsp.buf.format { async = true } end, bufopts)
 
   -- Set autocommands conditional on server_capabilities
   if client.server_capabilities.document_highlight then
