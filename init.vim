@@ -34,17 +34,6 @@ set relativenumber
 au VimEnter,BufRead,BufNewFile *.jl set filetype=julia
 filetype plugin indent on
 
-" A little helper function to help maintain the markdown previewer
-function! BuildComposer(info)
-  if a:info.status != 'unchanged' || a:info.force
-    if has('nvim')
-      !cargo build --release
-    else
-      !cargo build --release --no-default-features --features json-rpc
-    endif
-  endif
-endfunction
-
 " With a nod to https://vi.stackexchange.com/questions/454/whats-the-simplest-way-to-strip-trailing-whitespace-from-all-lines-in-a-file
 function! TrimWhitespace()
     let l:save = winsaveview()
@@ -110,8 +99,6 @@ call plug#begin('~/.nvim/plugged')
     Plug 'kassio/neoterm'
     "Git from vim
     Plug 'tpope/vim-fugitive'
-    "Markdown Preview
-    Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
     "Julia syntax highlighting
     Plug 'JuliaEditorSupport/julia-vim'
     Plug 'kdheepak/JuliaFormatter.vim'
