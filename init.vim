@@ -116,7 +116,6 @@ call plug#begin('~/.nvim/plugged')
     Plug 'lervag/vimtex'
     "Tree sitter
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-    Plug 'fisadev/vim-isort'
     Plug 'justinmk/vim-sneak'
 call plug#end()
 
