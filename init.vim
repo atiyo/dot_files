@@ -107,7 +107,7 @@ call plug#begin('~/.nvim/plugged')
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
     ""Seamless tmux/window navigation
-    "Plug 'christoomey/vim-tmux-navigator'
+    Plug 'christoomey/vim-tmux-navigator'
     "More versatile dots
     Plug 'tpope/vim-repeat'
     "Easy alignment
@@ -211,7 +211,7 @@ map t <Plug>Sneak_t
 map T <Plug>Sneak_T
 let g:sneak#label = 1
 
-"navigate windows with tmux-navigator
+""navigate windows with tmux-navigator
 "let g:tmux_navigator_no_mappings = 1
 "nnoremap <silent> <C-h> :TmuxNavigateLeft<CR>
 "nnoremap <silent> <C-j> :TmuxNavigateDown<CR>
