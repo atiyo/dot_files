@@ -40,6 +40,10 @@ function rdo
     rsync -Wvhra server:$REMOTE_PATH $LOCAL_PATH --exclude='.git/' --exclude='*.tfevents.*' --exclude="*.pyc" --exclude="*.DS_Store" --exclude="*scratch." --exclude="*.envrc"
 end
 
+function venv
+    source (find ~/venvs/ -depth 1 | fzf)"/venv/bin/activate.fish"
+end
+
 function pdf_merge
     gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=merged.pdf $argv
 end
