@@ -41,7 +41,7 @@ function rdo
 end
 
 function venv
-    source (find ~/venvs/ -depth 1 | fzf)"/venv/bin/activate.fish"
+    source ~/venvs/$argv[1]/venv/bin/activate.fish
 end
 
 function pdf_merge
