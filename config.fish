@@ -41,7 +41,22 @@ function rdo
 end
 
 function venv
-    source ~/venvs/$argv[1]/venv/bin/activate.fish
+    if not set -q argv[1]
+        pyenv versions
+    else
+        switch $argv[1]
+        case "clear"
+            set -e PYENV_VERSION
+        case "remove"
+            conda env remove -n $argv[2]
+        case "install"
+            mamba env create -f $argv[2]
+        case "list"
+            conda env list
+        case "*"
+            set -gx PYENV_VERSION mambaforge-4.14.0-2/envs/$argv[1]
+        end
+    end
 end
 
 function pdf_merge
