@@ -54,6 +54,7 @@ function venv
         case "list"
             conda env list
         case "*"
+            true
             set -gx PYENV_VERSION mambaforge-4.14.0-2/envs/$argv[1]
         end
     end
