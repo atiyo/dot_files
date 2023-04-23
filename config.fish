@@ -30,14 +30,14 @@ end
 
 function rup
     set -lx LOCAL_PATH (git rev-parse --show-toplevel)"/"
-    set -lx REMOTE_PATH "~/$(basename $LOCAL_PATH)"
-    rsync -Wvhra $LOCAL_PATH server:$REMOTE_PATH --exclude='.git/' --exclude='*.tfevents.*' --exclude="*.pyc" --exclude="*.DS_Store" --exclude="*scratch." --exclude="*.envrc"
+    set -lx REMOTE_PATH "~/$(basename $LOCAL_PATH)/"
+    rsync -Wvhra --exclude='*.git*' --exclude='*tensorboard*' --exclude="*__pycache__*" --exclude="*venv*" --exclude="*scratch.*" --exclude=".envrc" $LOCAL_PATH server:$REMOTE_PATH 
 end
 
 function rdo
-    set -lx LOCAL_PATH (git rev-parse --show-toplevel)
+    set -lx LOCAL_PATH (git rev-parse --show-toplevel)"/"
     set -lx REMOTE_PATH "~/$(basename $LOCAL_PATH)/"
-    rsync -Wvhra server:$REMOTE_PATH $LOCAL_PATH --exclude='.git/' --exclude='*.tfevents.*' --exclude="*.pyc" --exclude="*.DS_Store" --exclude="*scratch." --exclude="*.envrc"
+    rsync -Wvhra --exclude='*.git*' --exclude='*tensorboard*' --exclude="*__pycache__*" --exclude="*venv*" --exclude="*scratch.*" --exclude=".envrc" server:$REMOTE_PATH $LOCAL_PATH
 end
 
 function venv
