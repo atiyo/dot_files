@@ -16,7 +16,7 @@ function tree; exa -T --git-ignore $argv; end
 function pj; cd (find $PROJECT_PATHS -type d -maxdepth 1 | fzf); end
 
 function li
-    fd $argv[1]\$ | xargs rg $argv[2]
+    fd -0 $argv[1]\$ | xargs -0 rg $argv[2]
 end
 
 function lf
