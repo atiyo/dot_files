@@ -1,6 +1,5 @@
-function vim; nvim $argv; end
+set -gx PROJECT_PATHS ~/Documents/Git/ ~/Documents/ ~/Documents/Overleaf/
 function fishconf; vim ~/.config/fish/config.fish; end
-function vimconf; vim ~/.config/nvim/init.vim; end
 function cds; cd (fd -t f | fzf | xargs dirname); end
 function gad; git add $argv; end
 function gch; git branch -l | fzf | xargs -I ZZZ git checkout ZZZ; end
@@ -11,8 +10,7 @@ function gpul; git pull $argv; end
 function gpus; git push $argv; end
 function gst; git status; end
 function gbr; git branch $argv; end
-function mini; env PYENV_VERSION=miniforge3-4.10.3-10 $argv; end
-function tree; exa -T --git-ignore $argv; end
+function tree; tree -a -I '.git|venv|__pycache__'; end
 function pj; cd (find $PROJECT_PATHS -type d -maxdepth 1 | fzf); end
 
 function li
