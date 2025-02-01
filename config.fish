@@ -10,7 +10,7 @@ function gpul; git pull $argv; end
 function gpus; git push $argv; end
 function gst; git status; end
 function gbr; git branch $argv; end
-function tree; tree -a -I '.git|venv|__pycache__'; end
+function tre; tree -a -I '.git|venv|__pycache__'; end
 function pj; cd (find $PROJECT_PATHS -type d -maxdepth 1 | fzf); end
 
 function li
