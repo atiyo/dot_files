@@ -12,6 +12,7 @@ function gst; git status; end
 function gbr; git branch $argv; end
 function tre; tree -a -I '.git|venv|__pycache__'; end
 function pj; cd (find $PROJECT_PATHS -type d -maxdepth 1 | fzf); end
+function clip; ssh $argv "cat ~/atiyoclipboard.txt" | pbcopy; end
 
 function li
     fd -0 $argv[1]\$ | xargs -0 rg $argv[2]
